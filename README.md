@@ -1,10 +1,11 @@
-1. gpt2 reproduce. Dataset fineweb 10B: https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu 
+1. gpt2 reproduce. Dataset fineweb 10B: https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
+
 Credit: https://github.com/karpathy/build-nanogpt
 Improvements / changes: 
 	1. dropped muti-gpu training, torch.compile now works
 	2. improved the data loading flow, the training is smoother and less overfit.
 
-2. RAG: simple RAG system to retrieve data from a book. 
+3. RAG: simple RAG system to retrieve data from a book. 
 Steps:
 	1. load data, segment text into sentences using spacy (better than just using ".")
 	2. build page - sentence table. later if need more context, can feed the whole page.
