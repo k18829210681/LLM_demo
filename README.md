@@ -8,11 +8,12 @@ Improvements / changes:
 
 2. RAG: simple RAG system to retrieve data from a book. 
 	0: simple RAG pipeline: data --> chunking --> embedding --> ask questions.
+
    	1-6 complete RAG evaluation (work in progress):
-   		1. chunking
-   		2. Use embedding and LLM to deduplicate.
-   		3. Use LLM to generate question - answer pair based on the chunks.
-   		4. Use LLM to judge if the questions are valid and close to real questions asked by humans.
-   		5. Embedding, testing different different embedding model and dimensions. This is also used for deduplication before 2.
-   		6. Benchmark different embedding model and dimensions against the selected QA.
-   		7. Benchmark reranker models against the QA.
+   	1. chunking
+   	2. Use embedding and LLM to deduplicate.
+   	3. Use LLM to generate question - answer pair based on the chunks.
+   	4. Use LLM to judge if the questions are valid and close to real questions asked by humans.
+   	5. Embedding, testing different different embedding model and dimensions. This is also used for deduplication before 2.
+   	6. Benchmark different embedding model and dimensions against the selected QA.
+   	7. Benchmark reranker models against the QA.
