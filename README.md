@@ -7,10 +7,12 @@ Improvements / changes:
 	2. improved the data loading flow, the training is smoother and less overfit.
 
 2. RAG: simple RAG system to retrieve data from a book. 
-Steps:
-	1. load data, segment text into sentences using spacy (better than just using ".")
-	2. build page - sentence table. later if need more context, can feed the whole page.
-	3. chunking size: 2000 chars, about 500 tokens. This groups sentences but not break them, so chunks have different sizes. Also 50% overlap, so each sentence is used twice.
-	4. get embedding from latest Qwen3 0.6B model.
-	5. ask questions, get the context.
-	6. final LLM part is not included, since it is an independent choice.
+	0: simple RAG pipeline: data --> chunking --> embedding --> ask questions.
+   	1-6 complete RAG evaluation (work in progress):
+   		1. chunking
+   		2. Use embedding and LLM to deduplicate.
+   		3. Use LLM to generate question - answer pair based on the chunks.
+   		4. Use LLM to judge if the questions are valid and close to real questions asked by humans.
+   		5. Embedding, testing different different embedding model and dimensions. This is also used for deduplication before 2.
+   		6. Benchmark different embedding model and dimensions against the selected QA.
+   		7. Benchmark reranker models against the QA.
