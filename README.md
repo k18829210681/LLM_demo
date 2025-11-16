@@ -6,7 +6,8 @@ Improvements / changes:
 	1. dropped muti-gpu training, torch.compile now works
 	2. improved the data loading flow, the training is smoother and less overfit.
 
-2. RAG: simple RAG system to retrieve data from a book. 
+2. RAG: simple RAG system to retrieve data from a book.
+   
 	0: simple RAG pipeline: data --> chunking --> embedding --> ask questions.
 
    	1-6 complete RAG evaluation (work in progress):
