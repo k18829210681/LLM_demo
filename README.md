@@ -1,4 +1,4 @@
-GPT-2 Reproduction
+# GPT-2 Reproduction
 
   Dataset: FineWeb Edu 10B
   https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
@@ -12,7 +12,7 @@ GPT-2 Reproduction
   
   Improved the data loading flow, resulting in smoother training and reduced overfitting.
 
-Retrieval-Augmented Generation (RAG)
+# Retrieval-Augmented Generation (RAG)
 
   A simple RAG pipeline designed to retrieve information from a book or other long documents.
   
