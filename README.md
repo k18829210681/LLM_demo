@@ -14,11 +14,11 @@
 
 # Retrieval-Augmented Generation (RAG)
 
-  A simple RAG pipeline designed to retrieve information from a book or other long documents.
+  ### A simple RAG pipeline designed to retrieve information from a book or other long documents.
   
   Basic process: documents → chunking → embedding → retrieval → LLM question/answer
   
-  RAG Evaluation Components (work in progress)
+  ### RAG Evaluation Components (work in progress)
   
   1. Chunking
   
