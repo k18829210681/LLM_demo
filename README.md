@@ -1,18 +1,35 @@
-Just a simple demo repo to show part of my work on LLM.
+1. GPT-2 Reproduction
 
-1. gpt2 reproduce. Dataset fineweb 10B: https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
-Credit: https://github.com/karpathy/build-nanogpt
-Improvements / changes: 
-	1. dropped muti-gpu training, torch.compile now works
-	2. improved the data loading flow, the training is smoother and less overfit.
+Dataset: FineWeb Edu 10B
+https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
 
-2. RAG: simple RAG system to retrieve data from a book.
-	0: simple RAG pipeline: data --> chunking --> embedding --> ask questions.
-	1-6 complete RAG evaluation (work in progress):
-	   	1. chunking
-	   	2. Use embedding and LLM to deduplicate.
-	   	3. Use LLM to generate question - answer pair based on the chunks.
-	   	4. Use LLM to judge if the questions are valid and close to real questions asked by humans.
-	   	5. Embedding, testing different different embedding model and dimensions. This is also used for deduplication before 2.
-	   	6. Benchmark different embedding model and dimensions against the selected QA.
-	   	7. Benchmark reranker models against the QA.
+Reference (original implementation):
+https://github.com/karpathy/build-nanogpt
+
+Changes and improvements in this repo:
+
+Removed multi-GPU training. torch.compile() now works reliably.
+
+Improved the data loading flow, resulting in smoother training and reduced overfitting.
+
+2. Retrieval-Augmented Generation (RAG)
+
+A simple RAG pipeline designed to retrieve information from a book or other long documents.
+
+Basic process: documents → chunking → embedding → retrieval → LLM question/answer
+
+RAG Evaluation Components (work in progress)
+
+1. Chunking
+
+2. Deduplication using embeddings and LLM-based similarity judgment
+
+3. LLM generation of question–answer (QA) pairs from chunks
+
+4. LLM judgment of QA quality (whether questions are realistic and meaningful)
+
+5. Embedding model experiments using different models and vector dimensions (also used for deduplication in step 2)
+
+6. Benchmarking embedding models and dimensions against validated QA pairs
+
+7. Benchmarking reranker models using the same QA set
