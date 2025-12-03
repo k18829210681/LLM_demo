@@ -124,7 +124,7 @@ warning: MXFP4 quantization requires triton >= 3.4.0 and kernels installed,
 we will default to dequantizing the model to bf16
 ```
 
-**Solution**: Upgrade dependencies
+**Solution**: Upgrade dependencies and uninstall torchvision and torchaudio
 ```bash
 pip install --upgrade torch
 pip install git+https://github.com/huggingface/transformers triton==3.4 kernels
