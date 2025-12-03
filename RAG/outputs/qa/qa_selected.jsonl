@@ -1,0 +1,4 @@
+{"id": 51, "question": "What Python version is required for the Transformers library?", "answer": "3.8+"}
+{"id": 473, "question": "What environment variable must be set to enable hf_transfer?", "answer": "HF_HUB_ENABLE_HF_TRANSFER=1"}
+{"id": 221, "question": "What role is required to create or push content to a repository?", "answer": "write"}
+{"id": 1423, "question": "What is the pip command to install the Hugging Face Datasets library?", "answer": "pip install datasets"}

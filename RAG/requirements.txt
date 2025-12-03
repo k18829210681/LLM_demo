@@ -1,0 +1,19 @@
+# Core packages used in RAG dataset generation pipeline
+# Last updated: 2025-12-01
+
+# LLM inference and embeddings
+vllm==0.11.0
+torch==2.8.0
+
+# Numerical computing and similarity search
+numpy==2.2.6
+faiss-cpu==1.12.0
+
+# Data loading and processing
+datasets==4.1.1
+langchain==0.3.27
+langchain-text-splitters==1.0.0
+
+# Configuration and utilities
+PyYAML==6.0.2
+tqdm==4.67.1

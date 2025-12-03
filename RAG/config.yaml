@@ -1,0 +1,144 @@
+# ====================================================================
+# RAG Dataset Generation Pipeline Configuration
+# ====================================================================
+
+# --------------------------------------------------------------------
+# General Settings
+# --------------------------------------------------------------------
+random_seed: 42
+batch_size: 100  # Number of samples to process in each window (for progressive output)
+
+# Universal model parameters (used by all LLM and embedding steps)
+max_model_len: 10240
+max_new_tokens: 10240
+
+output_folder: "outputs"
+
+llm_models:
+  "qwen": "Qwen/Qwen3-30B-A3B-Thinking-2507-FP8"
+  "gpt": "openai/gpt-oss-20b"
+
+embedding_models:
+  "06B": "Qwen/Qwen3-Embedding-0.6B"
+  "4B": "Qwen/Qwen3-Embedding-4B"
+  "8B": "Qwen/Qwen3-Embedding-8B"
+
+reranking_models:
+  "06B": "Qwen/Qwen3-Reranker-0.6B"
+  "4B": "Qwen/Qwen3-Reranker-4B"
+  "8B": "Qwen/Qwen3-Reranker-8B"
+
+# --------------------------------------------------------------------
+# Step 1: Chunking and Sampling
+# --------------------------------------------------------------------
+chunking:
+  dataset: "m-ric/huggingface_doc"
+  chunk_size: 5000
+  chunk_overlap: 500
+
+  # output name: chunks
+
+# --------------------------------------------------------------------
+# Step 2: Deduplication
+# --------------------------------------------------------------------
+deduplication:
+  llm_models: ["gpt", "qwen"]
+
+  # Embedding model to use for similarity search
+  embedding_model: "06B"
+
+  # FAISS search parameters
+  top_k: 20  # Number of nearest neighbors to check
+  similarity_min: 0.97  # Minimum similarity to consider for deduplication
+  similarity_max: 0.995  # Auto-mark as duplicate if similarity >= this
+
+  # if "and", chunk is removed only if all models agree
+  # if "or", chunk is removed if one or more models think so
+  decision: "and"
+
+  # Set to null to skip sampling (use all chunks)
+  # Set to a number to sample that many chunks for QA generation
+  sample_size: 1000
+
+  # output: llm_model_dedu. for example, if use gpt, save the evaludation and decision to gpt_dedu
+  # also save the deduplicated chunks, and sample from the deduplicated chunks
+
+# --------------------------------------------------------------------
+# Step 3: QA Generation
+# --------------------------------------------------------------------
+qa_generation:
+  llm_models: ["gpt", "qwen"]
+
+  # Use sampled chunks (True) or all deduplicated chunks (False)
+  use_sampled_chunks: true
+
+  # output: {model}_qa.jsonl for each model
+
+# --------------------------------------------------------------------
+# Step 4: QA Quality Judging
+# --------------------------------------------------------------------
+qa_judging:
+  llm_models: ["gpt", "qwen"]
+
+  # Minimum ratings to keep (1-5 scale) - must pass ALL judges
+  min_groundedness: 4
+  min_relevance: 4
+  min_standalone: 4
+
+  # output: {judge_model}_judge_{qa_model}_qa.jsonl for each combination
+  # output: qa_selected.jsonl (final selected QA pairs)
+
+# --------------------------------------------------------------------
+# Step 5: Embedding
+# --------------------------------------------------------------------
+embedding:
+  embedding_models: ["06B", "4B", "8B"]
+
+  # Query instruction variants for retrieval
+  query_instructions: ["base", "ml", "ml_hf"]
+
+  # output: {emb_model}_chunks.npy + {emb_model}_chunks_ids.json
+  # output: {emb_model}_{instruction}_query.npy + {emb_model}_{instruction}_query_ids.json
+
+
+# --------------------------------------------------------------------
+# Step 6: Reranking
+# --------------------------------------------------------------------
+reranking:
+  reranking_models: ["06B", "4B", "8B"]
+  initial_top_k: 20  # Number of chunks to retrieve before reranking
+
+  # output: {emb_model}_{rerank_model}_{instruction}_reranking.jsonl for each combination
+
+# --------------------------------------------------------------------
+# Step 7: Benchmarking
+# --------------------------------------------------------------------
+benchmark:
+  # Embedding dimensions to test (will truncate embeddings)
+  embedding_dimensions: [32, 64, 128, 256, 512, 768, 1024, 2048, 4096]
+
+  # Metrics to compute
+  top_k_values: [1, 10, 20, 50]
+  compute_mrr: true  # Mean Reciprocal Rank
+  compute_map: true  # Mean Average Precision
+
+  # Reranking metrics (only top-k)
+  reranking_top_k_values: [1, 3, 5]
+
+  # output: benchmark_results.json + benchmark_results.csv
+  # output: benchmark_reranking_results.json + benchmark_reranking_results.csv
+
+# --------------------------------------------------------------------
+# Output Directories (organized into subfolders)
+# --------------------------------------------------------------------
+output:
+  base_dir: "/mnt/g/claude/outputs"
+
+  # Subfolders
+  chunks_dir: "chunks"
+  deduplication_dir: "deduplication"
+  qa_dir: "qa"
+  judgments_dir: "judgments"
+  embeddings_dir: "embeddings"
+  reranking_dir: "reranking"
+  benchmarks_dir: "benchmarks"
