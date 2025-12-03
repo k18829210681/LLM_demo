@@ -1,0 +1,3 @@
+{"id": 1344, "question": "What is the default seed value for the CryptoPunks generator?", "answer": "42"}
+{"id": 240, "question": "What command is used to rebase to the current main branch?", "answer": "git rebase upstream/main"}
+{"id": 51, "question": "What Python version is required for the Transformers library?", "answer": "3.8+"}
