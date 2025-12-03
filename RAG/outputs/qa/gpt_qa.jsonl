@@ -1,4 +1,0 @@
-{"id": 1344, "question": "What is the default seed value in the Gradio interface?", "answer": "42"}
-{"id": 240, "question": "What command is used to create a new branch with a descriptive name from the main branch?", "answer": "git checkout -b add_[lowercase name of model]"}
-{"id": 51, "question": "What command installs Transformers using conda?", "answer": "conda install -c huggingface transformers"}
-{"id": 1559, "question": "Which model variant has 26M random parameters and 126M leveraged parameters?", "answer": "RoBERTaShare"}
